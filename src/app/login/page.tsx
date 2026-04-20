@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signInWithGoogle, signInWithEmail, signUpWithEmail, isValidCollegeEmail } from '@/lib/auth';
+import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,9 +13,10 @@ import { TextEffect } from '@/components/motion-primitives/text-effect';
 import { AnimatedGroup } from '@/components/motion-primitives/animated-group';
 import { transitionVariants } from '@/lib/utils';
 import { toast } from 'sonner';
-import { Mail, Chrome } from 'lucide-react';
+import { Mail, Chrome, AlertTriangle } from 'lucide-react';
 
 export default function LoginPage() {
+  const { configured } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
@@ -117,6 +119,24 @@ export default function LoginPage() {
             ...transitionVariants,
           }}
         >
+          {!configured && (
+            <Card className="border-yellow-500/30 bg-yellow-500/5 mb-4">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3">
+                  <AlertTriangle className="size-5 text-yellow-500 shrink-0 mt-0.5" />
+                  <div className="space-y-2">
+                    <p className="font-semibold text-sm">Firebase Not Configured</p>
+                    <p className="text-sm text-muted-foreground">
+                      Update <code className="text-xs bg-secondary px-1.5 py-0.5 rounded font-mono">.env.local</code> with your Firebase project credentials to enable authentication.
+                    </p>
+                    <p className="text-xs text-muted-foreground font-mono">
+                      NEXT_PUBLIC_FIREBASE_API_KEY=your_key
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
           <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
             <CardHeader className="text-center">
               <CardTitle className="text-lg">{isSignUp ? 'Create account' : 'Sign in'}</CardTitle>
