@@ -1,0 +1,85 @@
+{
+  "theme": "light",
+  "archetype": "4 - Swiss & High-Contrast",
+  "design_philosophy": "Minimal, Monochrome, Premium. High-contrast objective layout focusing on content hierarchy. Function-first, utilizing stark white and deep black with 1px borders, avoiding gradients entirely. Inspired by Stripe and Notion dashboard design principles emphasizing simplicity, ample white space, and neutral color palettes.",
+  "typography": {
+    "heading_font": "Cabinet Grotesk",
+    "body_font": "Manrope",
+    "scale": {
+      "h1": "text-4xl sm:text-5xl tracking-tight font-bold",
+      "h2": "text-2xl sm:text-3xl tracking-tight font-semibold",
+      "h3": "text-xl sm:text-2xl tracking-tight font-medium",
+      "h4": "text-lg sm:text-xl font-medium",
+      "body": "text-base leading-relaxed",
+      "small_labels": "text-xs tracking-[0.2em] uppercase font-bold text-zinc-500"
+    }
+  },
+  "colors": {
+    "background": "#FAFAFA",
+    "surface": "#FFFFFF",
+    "primary": "#09090B",
+    "primary_foreground": "#FFFFFF",
+    "secondary": "#F4F4F5",
+    "secondary_foreground": "#18181B",
+    "muted": "#F4F4F5",
+    "muted_foreground": "#71717A",
+    "border": "#E4E4E7",
+    "success": "#10B981",
+    "warning": "#F59E0B",
+    "destructive": "#EF4444"
+  },
+  "layout": {
+    "strategy": "Fintech SaaS dashboard layout with left sidebar and top navbar. Clean, bento-grid inspired where appropriate, but strictly functional.",
+    "spacing": "Generous internal padding (p-6, p-8) for cards. Grid gap-6.",
+    "borders": "1px solid border-zinc-200. No soft floating shadows without borders.",
+    "radius": "rounded-lg (8px) for subtle roundness.",
+    "components": {
+      "sidebar": "Fixed left, border-r border-zinc-200, bg-zinc-50/50.",
+      "navbar": "Sticky top, border-b border-zinc-200, backdrop-blur-md bg-white/80.",
+      "cards": "bg-white border border-zinc-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow",
+      "buttons": "bg-zinc-900 text-white rounded-md hover:bg-zinc-800 transition-colors"
+    }
+  },
+  "motion": {
+    "hover": "Subtle background color shifts and slight shadow elevations.",
+    "active": "Scale down effect (scale-95) for button clicks.",
+    "page_transition": "Fade in with slight upward motion."
+  },
+  "components_instructions": [
+    "Use pure HTML + Tailwind for structural layouts like the dashboard wrapper.",
+    "Use Shadcn UI components for complex interactions: Table, Dialog, DropdownMenu, Tabs, Form, Select.",
+    "Do not use Shadcn 'Card' if it restricts creative layouts; build custom card divs with pure Tailwind if needed, otherwise standard Shadcn Card is fine for simple data.",
+    "Ensure all interactive elements have hover and focus states with visible contrast."
+  ],
+  "accessibility": [
+    "Include data-testid on all interactive elements.",
+    "Ensure 4.5:1 contrast ratio for all text.",
+    "Provide clear focus rings on inputs and buttons (focus:ring-2 focus:ring-zinc-900)."
+  ],
+  "image_urls": {
+    "logo": {
+      "url": "https://images.unsplash.com/photo-1637519290543-dc1c9717d0d2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBib2xkJTIwQSUyMGxldHRlciUyMG1hcmslMjBsb2dvJTIwbW9ub2Nocm9tZXxlbnwwfHx8fDE3NzY4Nzc1MTd8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Bold letter A monochrome logo for Artha."
+    },
+    "auth_background": {
+      "url": "https://images.unsplash.com/photo-1758846946048-67de28f6bc8c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzV8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwYWJzdHJhY3QlMjBhcmNoaXRlY3R1cmFsJTIwbGluZXMlMjBtb25vY2hyb21lfGVufDB8fHx8MTc3Njg3NzUxN3ww&ixlib=rb-4.1.0&q=85",
+      "description": "Minimalist abstract architectural lines for auth screen background."
+    },
+    "vendor_1": {
+      "url": "https://images.unsplash.com/photo-1770998312182-9bea1a43ba19?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NjV8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBtaW5pbWFsaXN0JTIwY29mZmVlJTIwc2hvcCUyMGV4dGVyaW9yJTIwYmxhY2slMjBhbmQlMjB3aGl0ZXxlbnwwfHx8fDE3NzY4Nzc1MTd8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Modern minimalist coffee shop exterior black and white."
+    },
+    "vendor_2": {
+      "url": "https://images.unsplash.com/photo-1746045234010-fceb2bb57479?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NjV8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjBtaW5pbWFsaXN0JTIwY29mZmVlJTIwc2hvcCUyMGV4dGVyaW9yJTIwYmxhY2slMjBhbmQlMjB3aGl0ZXxlbnwwfHx8fDE3NzY4Nzc1MTd8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Cafe interior with views of the city outside."
+    },
+    "vendor_3": {
+      "url": "https://images.pexels.com/photos/29560252/pexels-photo-29560252.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Black and white image of a coffee shop window."
+    }
+  },
+  "icons": {
+    "library": "lucide-react",
+    "instructions": "Use consistent stroke-width, preferably 1.5, to match the clean, thin lines of the UI."
+  }
+}
