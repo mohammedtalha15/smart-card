@@ -1,85 +1,97 @@
 {
   "theme": "light",
-  "archetype": "4 - Swiss & High-Contrast",
-  "design_philosophy": "Minimal, Monochrome, Premium. High-contrast objective layout focusing on content hierarchy. Function-first, utilizing stark white and deep black with 1px borders, avoiding gradients entirely. Inspired by Stripe and Notion dashboard design principles emphasizing simplicity, ample white space, and neutral color palettes.",
+  "archetype": "Swiss & High-Contrast",
   "typography": {
-    "heading_font": "Cabinet Grotesk",
-    "body_font": "Manrope",
+    "headings": {
+      "font_family": "Outfit",
+      "weights": ["light", "bold", "black"],
+      "tracking": "tracking-tighter",
+      "forbidden_fonts": ["Inter", "Roboto", "Open Sans"]
+    },
+    "body": {
+      "font_family": "Manrope",
+      "weights": ["regular", "medium"]
+    },
     "scale": {
-      "h1": "text-4xl sm:text-5xl tracking-tight font-bold",
-      "h2": "text-2xl sm:text-3xl tracking-tight font-semibold",
-      "h3": "text-xl sm:text-2xl tracking-tight font-medium",
-      "h4": "text-lg sm:text-xl font-medium",
+      "h1": "text-5xl sm:text-6xl+ tracking-tighter leading-none",
+      "h2": "text-3xl sm:text-4xl tracking-tight",
+      "h3": "text-xl sm:text-2xl",
+      "h4": "text-lg sm:text-xl",
       "body": "text-base leading-relaxed",
-      "small_labels": "text-xs tracking-[0.2em] uppercase font-bold text-zinc-500"
+      "labels": "text-xs tracking-[0.2em] uppercase"
     }
   },
   "colors": {
-    "background": "#FAFAFA",
-    "surface": "#FFFFFF",
-    "primary": "#09090B",
-    "primary_foreground": "#FFFFFF",
-    "secondary": "#F4F4F5",
-    "secondary_foreground": "#18181B",
-    "muted": "#F4F4F5",
-    "muted_foreground": "#71717A",
-    "border": "#E4E4E7",
-    "success": "#10B981",
-    "warning": "#F59E0B",
-    "destructive": "#EF4444"
-  },
-  "layout": {
-    "strategy": "Fintech SaaS dashboard layout with left sidebar and top navbar. Clean, bento-grid inspired where appropriate, but strictly functional.",
-    "spacing": "Generous internal padding (p-6, p-8) for cards. Grid gap-6.",
-    "borders": "1px solid border-zinc-200. No soft floating shadows without borders.",
-    "radius": "rounded-lg (8px) for subtle roundness.",
-    "components": {
-      "sidebar": "Fixed left, border-r border-zinc-200, bg-zinc-50/50.",
-      "navbar": "Sticky top, border-b border-zinc-200, backdrop-blur-md bg-white/80.",
-      "cards": "bg-white border border-zinc-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow",
-      "buttons": "bg-zinc-900 text-white rounded-md hover:bg-zinc-800 transition-colors"
+    "background": {
+      "primary": "#FFFFFF",
+      "secondary": "#F8FAFC"
+    },
+    "text": {
+      "primary": "#0F172A",
+      "secondary": "#64748B",
+      "inverse": "#FFFFFF"
+    },
+    "brand": {
+      "primary": "#002FA7",
+      "accent": "#0A0A0A"
+    },
+    "borders": {
+      "default": "border-slate-200",
+      "hover": "border-slate-900"
     }
   },
-  "motion": {
-    "hover": "Subtle background color shifts and slight shadow elevations.",
-    "active": "Scale down effect (scale-95) for button clicks.",
-    "page_transition": "Fade in with slight upward motion."
+  "spacing_and_layout": {
+    "general": "Generous spacing. Use p-8, p-12, py-24 for marketing sections.",
+    "marketing_grid": "Tetris grid: grid-cols-1 md:grid-cols-12 gap-8 with overlapping elements.",
+    "dashboard_grid": "Control Room grid: grid-cols-1 md:grid-cols-4 gap-4 or gap-6. Dense, highly utilized space.",
+    "containers": "Cards must have internal padding (p-6 or p-8) and use flat solid backgrounds.",
+    "border_radius": "Sharp edges or minimal rounding: rounded-none or rounded-sm."
   },
-  "components_instructions": [
-    "Use pure HTML + Tailwind for structural layouts like the dashboard wrapper.",
-    "Use Shadcn UI components for complex interactions: Table, Dialog, DropdownMenu, Tabs, Form, Select.",
-    "Do not use Shadcn 'Card' if it restricts creative layouts; build custom card divs with pure Tailwind if needed, otherwise standard Shadcn Card is fine for simple data.",
-    "Ensure all interactive elements have hover and focus states with visible contrast."
-  ],
-  "accessibility": [
-    "Include data-testid on all interactive elements.",
-    "Ensure 4.5:1 contrast ratio for all text.",
-    "Provide clear focus rings on inputs and buttons (focus:ring-2 focus:ring-zinc-900)."
-  ],
-  "image_urls": {
-    "logo": {
-      "url": "https://images.unsplash.com/photo-1637519290543-dc1c9717d0d2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBib2xkJTIwQSUyMGxldHRlciUyMG1hcmslMjBsb2dvJTIwbW9ub2Nocm9tZXxlbnwwfHx8fDE3NzY4Nzc1MTd8MA&ixlib=rb-4.1.0&q=85",
-      "description": "Bold letter A monochrome logo for Artha."
+  "surface_strategies": {
+    "header": "Crystal Glassmorphism: backdrop-blur-xl bg-white/70 with 1px bottom border border-slate-200/50.",
+    "dashboard_cards": "Grid Borders style: Flat white background, 1px border-slate-200. Hover: -translate-y-1 shadow-lg.",
+    "interactive_elements": "Neumorphism mix: Sharp 1px border grounded with slight shadow for buttons."
+  },
+  "animations": {
+    "hover": "Explicit hover states required for all interactive elements. Example: hover:bg-slate-900 hover:text-white transition-all duration-200 ease-in-out.",
+    "transitions": "Use specific properties: transition: transform 0.2s ease, opacity 0.2s ease.",
+    "entrance": "Staggered fade-up for list items."
+  },
+  "components_strategy": {
+    "marketing": "Pure HTML/Tailwind for layouts. Custom asymmetrical grids. Shadcn customized for forms.",
+    "dashboard": "Shadcn components heavily utilized (Tables, Tabs, Dialogs) but customized with sharp corners and high contrast.",
+    "icons": "lucide-react for standard elements. Use @phosphor-icons/react if duotone/complex icons are needed.",
+    "testing": "All interactive elements MUST have data-testid attributes (kebab-case, role-based)."
+  },
+  "image_urls": [
+    {
+      "url": "https://images.unsplash.com/photo-1704536191111-04fa1134be0e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMG1pbmltYWwlMjBtb2Rlcm4lMjB0ZWNoJTIwYXJjaGl0ZWN0dXJlJTIwd2hpdGUlMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTc3Njg3OTYxNXww&ixlib=rb-4.1.0&q=85",
+      "description": "Abstract minimal modern architecture white background",
+      "category": "hero_background"
     },
-    "auth_background": {
-      "url": "https://images.unsplash.com/photo-1758846946048-67de28f6bc8c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzV8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwYWJzdHJhY3QlMjBhcmNoaXRlY3R1cmFsJTIwbGluZXMlMjBtb25vY2hyb21lfGVufDB8fHx8MTc3Njg3NzUxN3ww&ixlib=rb-4.1.0&q=85",
-      "description": "Minimalist abstract architectural lines for auth screen background."
+    {
+      "url": "https://images.unsplash.com/photo-1758270705172-07b53627dfcb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDR8MHwxfHNlYXJjaHw0fHxjb2xsZWdlJTIwc3R1ZGVudHMlMjBkaXZlcnNlJTIwZ3JvdXAlMjBjYW1wdXN8ZW58MHx8fHwxNzc2ODc5NjAxfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Diverse group of students gathered around a laptop",
+      "category": "feature_students"
     },
-    "vendor_1": {
-      "url": "https://images.unsplash.com/photo-1770998312182-9bea1a43ba19?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NjV8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBtaW5pbWFsaXN0JTIwY29mZmVlJTIwc2hvcCUyMGV4dGVyaW9yJTIwYmxhY2slMjBhbmQlMjB3aGl0ZXxlbnwwfHx8fDE3NzY4Nzc1MTd8MA&ixlib=rb-4.1.0&q=85",
-      "description": "Modern minimalist coffee shop exterior black and white."
+    {
+      "url": "https://images.unsplash.com/photo-1646624867902-b970108e9137?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA0MTJ8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjb2ZmZWUlMjBzaG9wJTIwaW50ZXJpb3IlMjBjaGVja291dHxlbnwwfHx8fDE3NzY4Nzk2MDF8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Modern coffee shop interior counter",
+      "category": "feature_vendors"
     },
-    "vendor_2": {
-      "url": "https://images.unsplash.com/photo-1746045234010-fceb2bb57479?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NjV8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjBtaW5pbWFsaXN0JTIwY29mZmVlJTIwc2hvcCUyMGV4dGVyaW9yJTIwYmxhY2slMjBhbmQlMjB3aGl0ZXxlbnwwfHx8fDE3NzY4Nzc1MTd8MA&ixlib=rb-4.1.0&q=85",
-      "description": "Cafe interior with views of the city outside."
-    },
-    "vendor_3": {
-      "url": "https://images.pexels.com/photos/29560252/pexels-photo-29560252.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      "description": "Black and white image of a coffee shop window."
+    {
+      "url": "https://images.pexels.com/photos/12935051/pexels-photo-12935051.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Two individuals engaged in a contactless payment using a QR code scanner at a retail counter",
+      "category": "feature_qr_scan"
     }
-  },
-  "icons": {
-    "library": "lucide-react",
-    "instructions": "Use consistent stroke-width, preferably 1.5, to match the clean, thin lines of the UI."
-  }
+  ],
+  "instructions_to_main_agent": [
+    "Design the landing page focusing on a premium, minimal startup aesthetic with high-contrast typography.",
+    "Do not use generic center-aligned blocks for the hero section; use an asymmetrical grid.",
+    "For all dashboards (Student, Vendor, Admin), use a compact 'Control Room' layout with sharp corners (rounded-none or rounded-sm) and solid backgrounds (no glassmorphism on dashboards).",
+    "Adhere strictly to the color palette: Stark White backgrounds, deep Charcoal/Slate text, and International Klein Blue (#002FA7) as the primary brand action color.",
+    "Ensure all buttons and interactive elements include explicit hover and focus states.",
+    "Add 'data-testid' to every interactive element.",
+    "Use pure HTML/Tailwind for the landing page structure to allow creative overlaps, but rely on customized Shadcn components for forms, inputs, and all dashboard widgets."
+  ]
 }
