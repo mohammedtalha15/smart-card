@@ -6,12 +6,15 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        heading: ['"Cabinet Grotesk"', 'system-ui', 'sans-serif'],
+        heading: ['"Outfit"', 'system-ui', 'sans-serif'],
         body: ['"Manrope"', 'system-ui', 'sans-serif'],
       },
       colors: {
-        surface: '#FFFFFF',
-        background: '#FAFAFA',
+        brand: {
+          DEFAULT: '#002FA7',
+          light: '#002FA710',
+          hover: '#001D6C',
+        },
       },
     },
   },

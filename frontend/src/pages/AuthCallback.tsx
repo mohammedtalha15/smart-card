@@ -9,11 +9,13 @@ export default function AuthCallback() {
   const { login } = useAuth();
 
   useEffect(() => {
+    // Use useRef to prevent double-processing under StrictMode
     if (hasProcessed.current) return;
     hasProcessed.current = true;
 
     const hash = window.location.hash;
     const match = hash.match(/session_id=([^&]+)/);
+
     if (!match) {
       navigate('/login', { replace: true });
       return;
@@ -27,26 +29,32 @@ export default function AuthCallback() {
           method: 'POST',
           body: JSON.stringify({ session_id: sessionId }),
         });
-        login(data.token, data.user);
-        // Clear hash and navigate
-        window.history.replaceState(null, '', window.location.pathname);
-        const role = data.user?.role;
-        if (role === 'admin') navigate('/admin', { replace: true });
-        else if (role === 'vendor') navigate('/vendor-portal', { replace: true });
-        else navigate('/dashboard', { replace: true });
-      } catch {
+
+        if (data.token && data.user) {
+          login(data.token, data.user);
+          // Clear the hash fragment
+          window.history.replaceState(null, '', window.location.pathname);
+          // Navigate based on role
+          const role = data.user?.role;
+          if (role === 'admin') navigate('/admin', { replace: true });
+          else if (role === 'vendor') navigate('/vendor-portal', { replace: true });
+          else navigate('/dashboard', { replace: true });
+        } else {
+          console.error('Auth callback: Missing token or user data');
+          navigate('/login', { replace: true });
+        }
+      } catch (err) {
+        console.error('Auth callback error:', err);
         navigate('/login', { replace: true });
       }
     })();
   }, [navigate, login]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background" data-testid="auth-callback">
-      <div className="animate-pulse text-center">
-        <div className="w-12 h-12 rounded-xl bg-zinc-900 flex items-center justify-center mx-auto">
-          <span className="text-white font-bold text-2xl font-heading">A</span>
-        </div>
-        <p className="mt-4 text-zinc-500 text-sm">Signing you in...</p>
+    <div className="min-h-screen flex items-center justify-center bg-white" data-testid="auth-callback">
+      <div className="text-center anim-fade-in">
+        <div className="w-10 h-10 border-2 border-slate-200 border-t-brand rounded-full animate-spin mx-auto" />
+        <p className="mt-4 text-slate-400 text-sm font-body">Authenticating...</p>
       </div>
     </div>
   );
