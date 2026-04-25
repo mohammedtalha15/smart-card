@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { apiFetch } from '../lib/api';
 import SidebarLayout from '../components/SidebarLayout';
-import { LayoutDashboard, History, Search, MapPin, Tag, ChevronRight, Store, Percent } from 'lucide-react';
+import { LayoutDashboard, History, Search, MapPin, Tag, ChevronRight, Store, Percent, Sparkles } from 'lucide-react';
 
 const CATEGORIES = ['all', 'cafe', 'restaurant', 'stationery', 'laundry', 'grocery', 'salon', 'gym', 'pharmacy', 'electronics', 'clothing'];
 
@@ -47,16 +47,19 @@ export default function StudentDashboard() {
 
   return (
     <SidebarLayout navItems={studentNav} title="Student">
-      <div className="anim-fade-up" data-testid="student-dashboard">
+      <div data-testid="student-dashboard">
         <div className="mb-8">
-          <h1 className="text-3xl font-heading font-bold tracking-tighter text-[#0F172A]">Discover Vendors</h1>
-          <p className="mt-1 text-slate-500 text-sm">Find exclusive student discounts near you.</p>
+          <div className="flex items-center gap-2 mb-1">
+            <h1 className="text-3xl font-heading font-bold tracking-tighter text-[#0F172A]">Discover Vendors</h1>
+            <Sparkles className="w-5 h-5 text-brand" strokeWidth={1.5} />
+          </div>
+          <p className="text-slate-500 text-sm">Find exclusive student discounts near you.</p>
         </div>
 
         {/* Search & Filter */}
         <div className="flex flex-col sm:flex-row gap-3 mb-6">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300" strokeWidth={2} />
+          <div className="relative flex-1 group">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 group-focus-within:text-brand transition-colors" strokeWidth={2} />
             <input
               data-testid="vendor-search-input"
               type="text"
@@ -75,7 +78,7 @@ export default function StudentDashboard() {
                 onClick={() => setCategory(cat)}
                 className={`px-3 py-1.5 text-xs font-bold tracking-wider uppercase whitespace-nowrap transition-all ${
                   category === cat
-                    ? 'bg-[#0F172A] text-white'
+                    ? 'bg-[#0F172A] text-white shadow-sm'
                     : 'bg-white border border-slate-200 text-slate-400 hover:border-slate-400 hover:text-slate-600'
                 }`}
                 style={{ borderRadius: '2px' }}
@@ -89,19 +92,35 @@ export default function StudentDashboard() {
         {/* Vendor Grid */}
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-white border border-slate-200 p-5 animate-pulse" style={{ borderRadius: '2px' }}>
-                <div className="w-full h-36 bg-slate-100 mb-4" style={{ borderRadius: '2px' }} />
-                <div className="h-5 bg-slate-100 w-3/4 mb-2" style={{ borderRadius: '2px' }} />
-                <div className="h-4 bg-slate-100 w-1/2" style={{ borderRadius: '2px' }} />
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="bg-white border border-slate-200 overflow-hidden" style={{ borderRadius: '2px' }}>
+                <div className="w-full h-40 shimmer" />
+                <div className="p-4 space-y-3">
+                  <div className="h-4 shimmer w-3/4" style={{ borderRadius: '2px' }} />
+                  <div className="h-3 shimmer w-1/2" style={{ borderRadius: '2px' }} />
+                  <div className="flex gap-2">
+                    <div className="h-5 shimmer w-16" style={{ borderRadius: '2px' }} />
+                    <div className="h-5 shimmer w-20" style={{ borderRadius: '2px' }} />
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         ) : vendors.length === 0 ? (
-          <div className="text-center py-16" data-testid="no-vendors">
-            <Store className="w-8 h-8 text-slate-200 mx-auto mb-3" strokeWidth={1.5} />
-            <p className="text-slate-500 font-medium text-sm">No vendors found</p>
-            <p className="text-slate-400 text-xs mt-1">Try adjusting your search or filters.</p>
+          <div className="text-center py-20 bg-white border border-slate-200" data-testid="no-vendors" style={{ borderRadius: '2px' }}>
+            <div className="w-16 h-16 mx-auto mb-4 bg-slate-50 flex items-center justify-center" style={{ borderRadius: '2px' }}>
+              <Store className="w-7 h-7 text-slate-200" strokeWidth={1.5} />
+            </div>
+            <p className="text-[#0F172A] font-heading font-bold text-lg tracking-tight">No vendors found</p>
+            <p className="text-slate-400 text-sm mt-1 max-w-xs mx-auto">Try adjusting your search or filters, or check back later for new vendors.</p>
+            {category !== 'all' && (
+              <button
+                onClick={() => setCategory('all')}
+                className="mt-4 text-xs font-bold text-brand hover:underline"
+              >
+                Clear filters
+              </button>
+            )}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4" data-testid="vendor-grid">
@@ -110,13 +129,15 @@ export default function StudentDashboard() {
                 key={v.vendor_id}
                 data-testid={`vendor-card-${v.vendor_id}`}
                 onClick={() => navigate(`/vendor/${v.vendor_id}`)}
-                className="bg-white border border-slate-200 p-0 text-left hover:border-slate-400 hover:-translate-y-1 hover:shadow-lg transition-all duration-200 group"
+                className="bg-white border border-slate-200 p-0 text-left hover:border-slate-400 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/5 transition-all duration-300 group glow-card"
                 style={{ borderRadius: '2px', animationDelay: `${i * 0.05}s` }}
               >
-                <div className="w-full h-40 bg-slate-100 overflow-hidden">
+                <div className="w-full h-40 bg-slate-100 overflow-hidden relative">
                   {v.image && (
-                    <img src={v.image} alt={v.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <img src={v.image} alt={v.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   )}
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
                 <div className="p-4">
                   <div className="flex items-start justify-between">
@@ -139,7 +160,7 @@ export default function StudentDashboard() {
                         )}
                       </div>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-slate-200 group-hover:text-slate-500 shrink-0 transition-colors" strokeWidth={2} />
+                    <ChevronRight className="w-4 h-4 text-slate-200 group-hover:text-brand group-hover:translate-x-0.5 shrink-0 transition-all" strokeWidth={2} />
                   </div>
                 </div>
               </button>
