@@ -16,20 +16,22 @@ import {
 import { db } from './firebase';
 import type { User, Vendor, Offer, QRSession, Transaction } from '@/types';
 
-// Collection references
-export const usersCol = collection(db, 'users');
-export const vendorsCol = collection(db, 'vendors');
-export const offersCol = collection(db, 'offers');
-export const qrSessionsCol = collection(db, 'qr_sessions');
-export const transactionsCol = collection(db, 'transactions');
+// Collection references as lazy getters to avoid crash when db is null
+export const usersCol = () => collection(db!, 'users');
+export const vendorsCol = () => collection(db!, 'vendors');
+export const offersCol = () => collection(db!, 'offers');
+export const qrSessionsCol = () => collection(db!, 'qr_sessions');
+export const transactionsCol = () => collection(db!, 'transactions');
 
 // ── Users ──
 export async function getUser(id: string): Promise<User | null> {
+  if (!db) return null;
   const snap = await getDoc(doc(db, 'users', id));
   return snap.exists() ? ({ id: snap.id, ...snap.data() } as User) : null;
 }
 
 export async function createUser(user: Omit<User, 'createdAt'>): Promise<void> {
+  if (!db) return;
   await setDoc(doc(db, 'users', user.id), {
     ...user,
     createdAt: new Date().toISOString(),
@@ -37,27 +39,32 @@ export async function createUser(user: Omit<User, 'createdAt'>): Promise<void> {
 }
 
 export async function updateUser(id: string, data: Partial<User>): Promise<void> {
+  if (!db) return;
   await updateDoc(doc(db, 'users', id), data as DocumentData);
 }
 
 export async function getAllUsers(): Promise<User[]> {
-  const snap = await getDocs(usersCol);
+  if (!db) return [];
+  const snap = await getDocs(usersCol());
   return snap.docs.map((d) => ({ id: d.id, ...d.data() } as User));
 }
 
 // ── Vendors ──
 export async function getVendor(id: string): Promise<Vendor | null> {
+  if (!db) return null;
   const snap = await getDoc(doc(db, 'vendors', id));
   return snap.exists() ? ({ id: snap.id, ...snap.data() } as Vendor) : null;
 }
 
 export async function getAllVendors(): Promise<Vendor[]> {
-  const snap = await getDocs(query(vendorsCol, where('active', '==', true)));
+  if (!db) return [];
+  const snap = await getDocs(query(vendorsCol(), where('active', '==', true)));
   return snap.docs.map((d) => ({ id: d.id, ...d.data() } as Vendor));
 }
 
 export async function createVendor(vendor: Omit<Vendor, 'id' | 'createdAt'>): Promise<string> {
-  const ref = await addDoc(vendorsCol, {
+  if (!db) return '';
+  const ref = await addDoc(vendorsCol(), {
     ...vendor,
     createdAt: new Date().toISOString(),
   });
@@ -65,22 +72,26 @@ export async function createVendor(vendor: Omit<Vendor, 'id' | 'createdAt'>): Pr
 }
 
 export async function updateVendor(id: string, data: Partial<Vendor>): Promise<void> {
+  if (!db) return;
   await updateDoc(doc(db, 'vendors', id), data as DocumentData);
 }
 
 // ── Offers ──
 export async function getOffersForVendor(vendorId: string): Promise<Offer[]> {
-  const snap = await getDocs(query(offersCol, where('vendorId', '==', vendorId)));
+  if (!db) return [];
+  const snap = await getDocs(query(offersCol(), where('vendorId', '==', vendorId)));
   return snap.docs.map((d) => ({ id: d.id, ...d.data() } as Offer));
 }
 
 export async function getAllOffers(): Promise<Offer[]> {
-  const snap = await getDocs(offersCol);
+  if (!db) return [];
+  const snap = await getDocs(offersCol());
   return snap.docs.map((d) => ({ id: d.id, ...d.data() } as Offer));
 }
 
 export async function createOffer(offer: Omit<Offer, 'id' | 'createdAt'>): Promise<string> {
-  const ref = await addDoc(offersCol, {
+  if (!db) return '';
+  const ref = await addDoc(offersCol(), {
     ...offer,
     createdAt: new Date().toISOString(),
   });
@@ -91,7 +102,8 @@ export async function createOffer(offer: Omit<Offer, 'id' | 'createdAt'>): Promi
 export async function createQRSession(
   session: Omit<QRSession, 'id' | 'createdAt'>
 ): Promise<string> {
-  const ref = await addDoc(qrSessionsCol, {
+  if (!db) return '';
+  const ref = await addDoc(qrSessionsCol(), {
     ...session,
     createdAt: new Date().toISOString(),
   });
@@ -99,11 +111,13 @@ export async function createQRSession(
 }
 
 export async function getQRSession(id: string): Promise<QRSession | null> {
+  if (!db) return null;
   const snap = await getDoc(doc(db, 'qr_sessions', id));
   return snap.exists() ? ({ id: snap.id, ...snap.data() } as QRSession) : null;
 }
 
 export async function markQRSessionUsed(id: string): Promise<void> {
+  if (!db) return;
   await updateDoc(doc(db, 'qr_sessions', id), { used: true });
 }
 
@@ -111,27 +125,32 @@ export async function markQRSessionUsed(id: string): Promise<void> {
 export async function createTransaction(
   txn: Omit<Transaction, 'id'>
 ): Promise<string> {
-  const ref = await addDoc(transactionsCol, txn);
+  if (!db) return '';
+  const ref = await addDoc(transactionsCol(), txn);
   return ref.id;
 }
 
 export async function getAllTransactions(): Promise<Transaction[]> {
+  if (!db) return [];
   const snap = await getDocs(
-    query(transactionsCol, orderBy('timestamp', 'desc'), limit(100))
+    query(transactionsCol(), orderBy('timestamp', 'desc'), limit(100))
   );
   return snap.docs.map((d) => ({ id: d.id, ...d.data() } as Transaction));
 }
 
 export async function getTransactionsForUser(userId: string): Promise<Transaction[]> {
+  if (!db) return [];
   const snap = await getDocs(
-    query(transactionsCol, where('userId', '==', userId), orderBy('timestamp', 'desc'))
+    query(transactionsCol(), where('userId', '==', userId), orderBy('timestamp', 'desc'))
   );
   return snap.docs.map((d) => ({ id: d.id, ...d.data() } as Transaction));
 }
 
 export async function getTransactionsForVendor(vendorId: string): Promise<Transaction[]> {
+  if (!db) return [];
   const snap = await getDocs(
-    query(transactionsCol, where('vendorId', '==', vendorId), orderBy('timestamp', 'desc'))
+    query(transactionsCol(), where('vendorId', '==', vendorId), orderBy('timestamp', 'desc'))
   );
   return snap.docs.map((d) => ({ id: d.id, ...d.data() } as Transaction));
 }
+
