@@ -204,7 +204,7 @@ export default function LoginPage() {
                 {isSignUp ? 'Already have an account? ' : 'Don\'t have an account? '}
                 <button
                   onClick={() => setIsSignUp(!isSignUp)}
-                  className="text-foreground underline underline-offset-4 hover:text-primary cursor-pointer"
+                  className="text-foreground underline underline-offset-4 hover:text-primary cursor-pointer transition-all duration-200"
                 >
                   {isSignUp ? 'Sign in' : 'Sign up'}
                 </button>
