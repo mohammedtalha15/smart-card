@@ -1,4 +1,5 @@
 # v0 IRL Event Landing Template
+> 🚀 Enhanced with 20 meaningful UI/UX and codebase improvements.
 
 A customizable landing page template for hosting v0 IRL events around the world. This template was originally created for the "Prompt to Production" events and includes an interactive 3D lanyard generator, event agenda, sponsor showcase, and registration CTAs.
 
