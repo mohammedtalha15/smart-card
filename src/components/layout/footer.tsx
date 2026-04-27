@@ -6,6 +6,7 @@ const links = [
   { title: 'History', href: '/history' },
   { title: 'Vendor Portal', href: '/vendor-portal' },
   { title: 'Admin', href: '/admin' },
+  { title: 'Contact Us', href: 'mailto:support@artha.com' },
 ];
 
 export default function FooterSection() {
