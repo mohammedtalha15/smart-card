@@ -30,3 +30,4 @@ export const CATEGORY_ICONS: Record<string, string> = {
 
 export const QR_EXPIRY_SECONDS = 30;
 export const APP_NAME = 'Artha';
+export const DEFAULT_CURRENCY = 'INR';
