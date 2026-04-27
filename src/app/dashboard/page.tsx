@@ -81,7 +81,7 @@ export default function DashboardPage() {
                 className="pl-10"
               />
             </div>
-            <div className="flex gap-2 flex-wrap">
+            <div className="flex gap-2 flex-wrap" aria-label="Filter by category">
               {categories.map((cat) => (
                 <button
                   key={cat}
