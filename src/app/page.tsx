@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="animate-pulse">
+      <div className="animate-pulse flex flex-col items-center gap-4">
         <div className="size-12 rounded-xl bg-primary flex items-center justify-center">
           <span className="text-primary-foreground font-bold text-2xl">A</span>
         </div>
