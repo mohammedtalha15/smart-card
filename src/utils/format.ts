@@ -4,3 +4,9 @@ export const formatCurrency = (amount: number, currency: string = 'INR') => {
     currency,
   }).format(amount);
 };
+
+export const formatDate = (date: Date | string) => {
+  return new Intl.DateTimeFormat('en-IN', {
+    dateStyle: 'medium',
+  }).format(new Date(date));
+};
