@@ -11,6 +11,7 @@ const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono"
 export const metadata: Metadata = {
   title: 'Artha — Student Discount Network',
   description: 'Unlock real-world value through verified student discounts at local vendors. Artha connects students with exclusive deals.',
+  keywords: ['student discount', 'university', 'deals', 'campus', 'savings'],
   icons: {
     icon: '/favicon.ico',
   },
