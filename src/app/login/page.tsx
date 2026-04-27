@@ -92,7 +92,7 @@ export default function LoginPage() {
             preset="fade-in-blur"
             speedSegment={0.3}
             as="h1"
-            className="mt-6 text-balance text-4xl font-semibold"
+            className="mt-6 text-balance text-4xl font-semibold tracking-tight"
           >
             Welcome to Artha
           </TextEffect>
