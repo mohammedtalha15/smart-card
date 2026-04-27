@@ -107,7 +107,7 @@ export default function DashboardPage() {
             </div>
           ) : filtered.length === 0 ? (
             <div className="text-center py-20">
-              <Store className="size-12 mx-auto text-muted-foreground mb-4" />
+              <Store className="size-12 mx-auto text-muted-foreground/50 mb-4" />
               <p className="text-muted-foreground">No vendors found</p>
               <p className="text-sm text-muted-foreground mt-1">
                 {vendors.length === 0 ? 'Vendors will appear here once added by admin' : 'Try a different search or filter'}
