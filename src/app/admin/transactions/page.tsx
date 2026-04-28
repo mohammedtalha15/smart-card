@@ -53,7 +53,7 @@ export default function AdminTransactionsPage() {
             <div className="flex items-center justify-center py-12"><Loader2 className="size-6 animate-spin text-muted-foreground" /></div>
           ) : transactions.length === 0 ? (
             <div className="text-center py-12">
-              <Receipt className="size-12 mx-auto text-muted-foreground mb-4" />
+              <Receipt className="size-16 mx-auto text-muted-foreground/60 mb-4" />
               <p className="text-muted-foreground">No transactions yet</p>
             </div>
           ) : (
