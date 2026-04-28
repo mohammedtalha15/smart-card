@@ -32,7 +32,7 @@ export default function FooterSection() {
             </Link>
           ))}
         </div>
-        <span className="text-muted-foreground block text-center text-sm font-mono">
+        <span className="text-muted-foreground block text-center text-xs font-mono">
           Artha — Student Discount Network • Built for BMSIT
         </span>
       </div>
