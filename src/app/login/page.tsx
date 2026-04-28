@@ -147,11 +147,11 @@ export default function LoginPage() {
             <CardContent className="space-y-4">
               <Button
                 variant="outline"
-                className="w-full h-11 gap-3"
+                className="w-full h-11 gap-3 group"
                 onClick={handleGoogleLogin}
                 disabled={loading}
               >
-                <Chrome className="size-5" />
+                <Chrome className="size-5 group-hover:text-primary transition-colors" />
                 <span>Continue with Google</span>
               </Button>
 
