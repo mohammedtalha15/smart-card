@@ -127,7 +127,7 @@ export default function DashboardPage() {
             >
               {filtered.map((vendor) => (
                 <Link key={vendor.id} href={`/vendor/${vendor.id}`}>
-                  <Card className="group hover:border-foreground/20 transition-all duration-300 cursor-pointer h-full">
+                  <Card className="group hover:border-foreground/20 hover:scale-[1.02] transition-all duration-300 cursor-pointer h-full">
                     <CardHeader className="pb-3">
                       <div className="flex items-start justify-between">
                         <div className="flex items-center gap-3">
